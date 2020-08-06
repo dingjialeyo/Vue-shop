@@ -49,8 +49,8 @@
                         <!-- 删除按钮 -->
                         <el-button type="danger" icon="el-icon-delete" size="mini" @click="delUsers(scope.row.id)"></el-button>
                         <!-- 分配角色按钮 -->
-                        <el-tooltip class="item" effect="dark" content="角色分配设置" placement="right" :enterable="false">
-                            <el-button type="warning" icon="el-icon-setting" size="mini"></el-button>
+                        <el-tooltip class="item" effect="dark" content="角色分配" placement="right" :enterable="false">
+                            <el-button @click="setRole(scope.row)" type="warning" icon="el-icon-setting" size="mini"></el-button>
                         </el-tooltip>
                     </template>
                 </el-table-column>
@@ -117,6 +117,35 @@
             <span slot="footer" class="dialog-footer">
                 <el-button @click="putDialogVisible = false">取 消</el-button>
                 <el-button type="primary" @click="isPutUsers">确 定</el-button>  
+            </span>
+        </el-dialog>
+        <!-- 分配角色对话框 -->
+        <el-dialog
+            title="分配角色"
+            :visible.sync="setRoleVisible"
+            width="50%"
+            @close="setRoleDialogClose"
+            >
+            <div>
+                <p>当前的用户: {{roleInfo.username}}</p>
+                <p>当前的角色: {{roleInfo.role_name}}</p>
+                <p>分配新角色: 
+                    <template>
+                        <el-select v-model="selectRoleId" placeholder="请选择">
+                            <el-option
+                            v-for="item in roleList"
+                            :key="item.id"
+                            :label="item.roleName"
+                            :value="item.id">
+                            </el-option>
+                        </el-select>
+                    </template>
+                </p>
+            </div>
+            <!-- 底部按钮区域 -->
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="setRoleVisible = false">取 消</el-button>
+                <el-button type="primary" @click="isSetRole">确 定</el-button>  
             </span>
         </el-dialog>
     </div>
@@ -249,7 +278,15 @@ export default {
                 ]
             },
             // 获取的 要修改用户的数据
-            putUsers: {}
+            putUsers: {},
+            // 分配角色对话框的显示隐藏
+            setRoleVisible: false,
+            // 点击后对应该角色的信息
+            roleInfo : {},
+            // 获取所有角色列表数据
+            roleList : [],
+            // 分配角色对话框中的选择角色获取的值
+            selectRoleId : ''
         }
     },
     // 生命周期
@@ -314,7 +351,7 @@ export default {
         async showEditDialog (id) {
             // console.log(id);
             const { data: res} = await this.$http.get(`users/${id}`)
-            if (res.meta.status !==200) return this.$message.error('查询用户数据失败')
+            if (res.meta.status !==200) return this.$message.error('查询该用户数据失败')
             this.putUsers = res.data
             // console.log(this.putUsers);
             this.putDialogVisible = true
@@ -361,27 +398,39 @@ export default {
             if (res.meta.status !== 200) return this.$message.error('用户删除操作失败！')
             this.$message.success('用户删除操作成功！')
             this.getUserList()
+        },
+        // 打开角色分配对话框 并获取响应数据
+        async setRole (roleInfo) {
+            this.roleInfo = roleInfo
+            // 在展示对话框前，获取所有的角色列表
+            const { data : res} = await this.$http.get('roles')
+            if (res.meta.status !== 200) return this.$message.error('获取角色列表数据失败！')
+            this.roleList = res.data
+            this.setRoleVisible = true
+        },
+        // 关闭分配角色对话框
+        setRoleDialogClose () {
+            // 重置对应的数据信息
+            this.selectRoleId = ''
+            this.roleInfo = {}
+            this.setRoleVisible = false
+        },
+        // 确定点击 分配选择后的角色
+        async isSetRole () {
+            if(!this.selectRoleId) {
+                return this.$message.error('请选择分配的新角色！')
+            }
+            const { data: res} = await this.$http.put(`users/${this.roleInfo.id}/role`,{
+                rid : this.selectRoleId
+            })
+            if (res.meta.status !== 200) return this.$message.error('分配新角色操作失败！')
+            this.getUserList()
+            this.setRoleVisible = false
+            this.$message.success('分配新角色操作成功！')
         }
-    },
+    }
 }
 </script>
 
 <style lang="less" scoped>
-    .el-breadcrumb {
-        font-size: 12px;
-        margin-bottom: 15px;
-    }
-
-    .el-card {
-        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
-    }
-
-    .el-table {
-        margin-top: 30px;
-        font-size: 14px;
-    }
-
-    .el-pagination {
-        margin-top: 25px;
-    }
 </style>

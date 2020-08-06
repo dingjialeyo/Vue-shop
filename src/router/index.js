@@ -8,6 +8,10 @@ import Home from '../components/home.vue'
 import Welcome from '../components/welcome.vue'
 // 导入users组件
 import Users from '../components/user/users.vue'
+// 导入rights组件
+import Rights from '../components/power/rights.vue'
+// 导入Roles组件
+import Roles from '../components/power/roles.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -25,6 +29,14 @@ const routes = [
       {
         path: '/users',
         component: Users
+      },
+      {
+        path: '/rights',
+        component: Rights
+      },
+      {
+        path: '/roles',
+        component: Roles
       }
     ]
   }
