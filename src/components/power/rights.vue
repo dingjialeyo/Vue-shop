@@ -52,7 +52,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less" scoped>
 .el-breadcrumb {
   font-size: 12px;
   margin-bottom: 15px;

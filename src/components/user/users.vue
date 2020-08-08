@@ -186,7 +186,7 @@ export default {
                 // 当前页数
                 pagenum: 1,
                 // 当前每页显示多少数据
-                pagesize: 2
+                pagesize: 3
             },
             // 接收到的用户列表数据
             usersList: [],
