@@ -14,6 +14,8 @@ import Rights from '../components/power/rights.vue'
 import Roles from '../components/power/roles.vue'
 // 导入categories组件
 import Categories from '../components/goods/categories.vue'
+// 导入params组件
+import Params from '../components/goods/params.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -43,6 +45,10 @@ const routes = [
       {
         path: '/categories',
         component: Categories
+      },
+      {
+        path: '/params',
+        component: Params
       }
     ]
   }

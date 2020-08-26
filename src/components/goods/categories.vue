@@ -245,6 +245,7 @@ export default {
             this.getCateList()
         }
     },
+    
 }
 </script>
 
