@@ -6,12 +6,15 @@ import Vue from 'vue'
 // // 导入弹框提示
 // import { Message } from 'element-ui'
 
-import { Button, Form, FormItem, Input, Message, Container, Header, Aside, Main, Menu, Submenu, MenuItem, Breadcrumb, BreadcrumbItem, Card, Row, Col, Table, TableColumn, Switch, Tooltip, Pagination, Dialog, MessageBox, Tag, Tree, Select, Option, Cascader, Alert, Tabs, TabPane} from 'element-ui'
+import { Button, Form, FormItem, Input, Message, Container, Header, Aside, Main, Menu, Submenu, MenuItem, Breadcrumb, BreadcrumbItem, Card, Row, Col, Table, TableColumn, Switch, Tooltip, Pagination, Dialog, MessageBox, Tag, Tree, Select, Option, Cascader, Alert, Tabs, TabPane, Step, Steps, Checkbox, CheckboxGroup, Upload} from 'element-ui'
 
 // 并注册为全局组件
 Vue.use(Button)
 Vue.use(Form)
+Vue.use(Upload)
 Vue.use(FormItem)
+Vue.use(Checkbox)
+Vue.use(CheckboxGroup)
 Vue.use(Input)
 Vue.use(Container)
 Vue.use(Aside)
@@ -19,6 +22,8 @@ Vue.use(Main)
 Vue.use(Header)
 Vue.use(Menu)
 Vue.use(Submenu)
+Vue.use(Step)
+Vue.use(Steps)
 Vue.use(MenuItem)
 Vue.use(Breadcrumb)
 Vue.use(BreadcrumbItem)

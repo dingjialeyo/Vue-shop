@@ -427,7 +427,8 @@ export default {
             this.getUserList()
             this.setRoleVisible = false
             this.$message.success('分配新角色操作成功！')
-        }
+        },
+        
     }
 }
 </script>

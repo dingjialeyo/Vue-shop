@@ -16,6 +16,12 @@ import Roles from '../components/power/roles.vue'
 import Categories from '../components/goods/categories.vue'
 // 导入params组件
 import Params from '../components/goods/params.vue'
+// 导入list组件
+import List from '../components/goods/list.vue'
+// 导入order组件
+import Order from '../components/order/order.vue'
+// 导入add组件
+import Add from '../components/goods/add.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -49,6 +55,18 @@ const routes = [
       {
         path: '/params',
         component: Params
+      },
+      {
+        path: '/goods',
+        component: List
+      },
+      {
+        path: '/orders',
+        component: Order
+      },
+      {
+        path: '/goods/add',
+        component: Add
       }
     ]
   }
